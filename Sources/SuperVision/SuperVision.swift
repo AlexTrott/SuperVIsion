@@ -9,19 +9,20 @@ import Foundation
 
 public class SuperVision {
 
+    public var snitch: AnalyticReporter
+
     public static let shared = SuperVision()
 
-    public var snitch: AnalyticsServicable
+    private static var analyticConfig: InitializableConfig?
 
-    public init(
-        analyticsService: AnalyticsServicable = AnalyticsService()
-    ) {
-        self.snitch = analyticsService
+    private init() {
+        guard let analyticConfig = SuperVision.analyticConfig else {
+            fatalError("Error - you must call setup before accessing MySingleton.shared")
+        }
+        snitch = AnalyticsService(config: analyticConfig)
     }
 
-    public func enableSnitch(with config: InitializableConfig) {
-        snitch.config = config
-        snitch.initialize()
+    public class func setup(_ analyticConfig: InitializableConfig){
+        SuperVision.analyticConfig = analyticConfig
     }
 }
-

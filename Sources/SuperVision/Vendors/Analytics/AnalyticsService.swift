@@ -7,28 +7,15 @@
 
 import Foundation
 
-public typealias AnalyticsServicable = Initializable & AnalyticReporter
 
-public class AnalyticsService: AnalyticsServicable {
+public class AnalyticsService: AnalyticReporter {
 
-    public var config: InitializableConfig?
+    private let reporter: AnalyticReporter
 
-    var initializable: Initializable
-    let reporter: AnalyticReporter
-
-    public init(
-        config: InitializableConfig? = nil,
-        initializable: Initializable = MixpanelInitlizer(),
-        reporter: AnalyticReporter = MixpanelReporter()
+    required public init(
+        config: InitializableConfig
     ) {
-        self.config = config
-        self.initializable = initializable
-        self.reporter = reporter
-    }
-
-    public func initialize() {
-        initializable.config = config
-        initializable.initialize()
+        self.reporter = MixpanelService(config: config)
     }
 
     public func track(_ event: Event, properties: [String : String] = [:]) {

@@ -8,21 +8,29 @@
 import Foundation
 import Mixpanel
 
-public class MixpanelInitlizer: Initializable {
+public class MixpanelService: AnalyticReporter {
 
-    public var config: InitializableConfig?
-    private var mixpanel: MixpanelInstance
+    private var mixpanel: MixpanelInstance?
 
-    public init(
-        mixpanel: MixpanelInstance = Mixpanel.mainInstance()
+    required public init(
+        config: InitializableConfig
     ) {
-        self.mixpanel = mixpanel
-    }
-
-    public func initialize() {
         guard let config = config as? MixpanelConfig else { return }
         Mixpanel.initialize(token: config.token)
-        mixpanel.serverURL = config.serverURL
-        mixpanel.loggingEnabled = config.loggingEnabled
+        self.mixpanel = Mixpanel.mainInstance()
+        mixpanel?.serverURL = config.serverURL
+        mixpanel?.loggingEnabled = config.loggingEnabled
+    }
+
+    public func track(_ event: Event, properties: [String: String]) {
+        mixpanel?.track(event: event, properties: properties)
+    }
+
+    public func startTimer(_ event: Event) {
+        mixpanel?.time(event: event)
+    }
+
+    public func stopTimer(_ event: Event) {
+        mixpanel?.track(event: event)
     }
 }
