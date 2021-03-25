@@ -8,12 +8,12 @@
 import Foundation
 import Mixpanel
 
-public class MixpanelService: AnalyticReporter {
+internal class MixpanelService: AnalyticReporter {
 
 
     private var mixpanel: MixpanelInstance?
 
-    required public init(config: InitializableConfig) {
+    required internal init(config: InitializableConfig) {
         guard let config = config as? MixpanelConfig else { return }
         Mixpanel.initialize(token: config.token)
         self.mixpanel = Mixpanel.mainInstance()
@@ -21,15 +21,15 @@ public class MixpanelService: AnalyticReporter {
         mixpanel?.loggingEnabled = config.loggingEnabled
     }
 
-    public func track(_ event: Event, properties: [String: String]) {
+    internal func track(_ event: Event, properties: [String: String]) {
         mixpanel?.track(event: event, properties: properties)
     }
 
-    public func startTimer(_ event: Event) {
+    internal func startTimer(_ event: Event) {
         mixpanel?.time(event: event)
     }
 
-    public func stopTimer(_ event: Event) {
+    internal func stopTimer(_ event: Event) {
         mixpanel?.track(event: event)
     }
 }

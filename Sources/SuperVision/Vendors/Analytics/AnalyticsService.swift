@@ -25,15 +25,15 @@ internal class AnalyticsService: AnalyticsServicable {
         self.reporter = reporter
     }
 
-    func track(_ event: Event, properties: [String : String] = [:]) {
+    internal func track(_ event: Event, properties: [String : String] = [:]) {
         reporter.track(event, properties: properties)
     }
 
-    func startTimer(_ event: Event) {
+    internal func startTimer(_ event: Event) {
         reporter.startTimer(event)
     }
 
-    func stopTimer(_ event: Event) {
+    internal func stopTimer(_ event: Event) {
         reporter.stopTimer(event)
     }
 }
