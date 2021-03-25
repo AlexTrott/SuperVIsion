@@ -10,11 +10,10 @@ import Mixpanel
 
 public class MixpanelService: AnalyticReporter {
 
+
     private var mixpanel: MixpanelInstance?
 
-    required public init(
-        config: InitializableConfig
-    ) {
+    required public init(config: InitializableConfig) {
         guard let config = config as? MixpanelConfig else { return }
         Mixpanel.initialize(token: config.token)
         self.mixpanel = Mixpanel.mainInstance()

@@ -8,25 +8,32 @@
 import Foundation
 
 
-public class AnalyticsService: AnalyticReporter {
+public protocol AnalyticsServicable {
+
+    init(reporter: AnalyticReporter)
+
+    func track(_ event: Event, properties: [String: String])
+    func startTimer(_ event: Event)
+    func stopTimer(_ event: Event)
+}
+
+internal class AnalyticsService: AnalyticsServicable {
 
     private let reporter: AnalyticReporter
 
-    required public init(
-        config: InitializableConfig
-    ) {
-        self.reporter = MixpanelService(config: config)
+    required init(reporter: AnalyticReporter) {
+        self.reporter = reporter
     }
 
-    public func track(_ event: Event, properties: [String : String] = [:]) {
+    func track(_ event: Event, properties: [String : String] = [:]) {
         reporter.track(event, properties: properties)
     }
 
-    public func startTimer(_ event: Event) {
+    func startTimer(_ event: Event) {
         reporter.startTimer(event)
     }
 
-    public func stopTimer(_ event: Event) {
+    func stopTimer(_ event: Event) {
         reporter.stopTimer(event)
     }
 }
