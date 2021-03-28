@@ -21,7 +21,7 @@ public struct CrashCrumb {
     public let category: String
     public let message: String
 
-    init(
+    public init(
         level: CrashCrumbLevel,
         category: String,
         message: String
