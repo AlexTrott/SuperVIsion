@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Mixpanel",
+        "repositoryURL": "https://github.com/mixpanel/mixpanel-swift.git",
+        "state": {
+          "branch": null,
+          "revision": "1e45e0e676a7a49ec44f326c3a1f33888baf0c7c",
+          "version": "2.9.0"
+        }
+      },
+      {
+        "package": "Sentry",
+        "repositoryURL": "https://github.com/getsentry/sentry-cocoa",
+        "state": {
+          "branch": null,
+          "revision": "946cbb6daccedf40d652a12138f78e96f660e1ad",
+          "version": "6.2.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
